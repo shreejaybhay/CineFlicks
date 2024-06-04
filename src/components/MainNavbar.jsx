@@ -38,7 +38,7 @@ const MainNav = () => {
                     <a href="/" className="text-gray-300 hover:text-white">Home</a>
                     <a href="/movies" className="text-gray-300 hover:text-white">Movies</a>
                     <a href="/shows" className="text-gray-300 hover:text-white">TV Shows</a>
-                    <a href="/favorites" className="text-gray-300 hover:text-white">Favorites</a>
+                    <a href="/anime" className="text-gray-300 hover:text-white">Anime</a>
                     <a href="#" className="text-gray-300 hover:text-white">About</a>
                 </div>
 

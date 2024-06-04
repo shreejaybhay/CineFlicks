@@ -4,11 +4,11 @@ import Image from "next/image";
 export default function Home() {
     return (
         <div>
-        <Navbar />
+            <Navbar />
             <div className="relative flex items-center justify-center w-full h-[calc(100vh-72px)] overflow-hidden bg-gray-900">
                 <div className="absolute inset-0">
                     <Image
-                        src="https://assets.nflxext.com/ffe/siteui/vlv3/dd4dfce3-1a39-4b1a-8e19-b7242da17e68/86742114-c001-4800-a127-c9c89ca7bbe4/IN-en-20240527-popsignuptwoweeks-perspective_alpha_website_large.jpg" // Replace with the path to your background image
+                        src="https://assets.nflxext.com/ffe/siteui/vlv3/dd4dfce3-1a39-4b1a-8e19-b7242da17e68/86742114-c001-4800-a127-c9c89ca7bbe4/IN-en-20240527-popsignuptwoweeks-perspective_alpha_website_large.jpg"
                         layout="fill"
                         objectFit="cover"
                         objectPosition="center"
@@ -39,3 +39,4 @@ export default function Home() {
         </div>
     );
 }
+

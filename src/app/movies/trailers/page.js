@@ -99,15 +99,15 @@ const TrailersPage = () => {
                             <MdNavigateNext />
                         </button>
                     </div>
-                    <div className="absolute flex justify-start my-12 -translate-x-40">
-                        <ul className='flex flex-col items-start gap-2'>
-                            {genres.map((genre, index) => (
-                                <li key={index} className='flex bg-black w-36'>
-                                    <Link href={`/movies/${genre}`} className="w-full px-4 py-2 font-medium text-center text-white capitalize bg-indigo-600 rounded-md text-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{genre}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    <div className="absolute flex justify-start my-12 top-[156px] left-5">
+                    <ul className='flex flex-col items-start gap-2'>
+                        {mov.map((category, index) => (
+                            <li key={index} className='flex bg-black w-36'>
+                                <Link href={`/movies/${category}`} className="w-full px-4 py-2 font-medium text-center text-white capitalize bg-indigo-600 rounded-md text-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{category}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {trailers.map(movie => (
                             <div key={movie.id} className="flex flex-col h-full p-2 bg-gray-800 rounded-md shadow-md cursor-pointer" onClick={() => handleTrailerClick(movie.trailer)}>
@@ -119,15 +119,7 @@ const TrailersPage = () => {
                             </div>
                         ))}
                     </div>
-                    <div className="absolute flex justify-start my-12 top-[115px] right-5">
-                        <ul className='flex flex-col items-start gap-2'>
-                            {mov.map((category, index) => (
-                                <li key={index} className='flex bg-black w-36'>
-                                    <Link href={`/movies/${category}`} className="w-full px-4 py-2 font-medium text-center text-white capitalize bg-indigo-600 rounded-md text-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{category}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                 
                     <div className="flex justify-center my-8">
                         <button
                             onClick={() => handlePageChange(page - 1)}
