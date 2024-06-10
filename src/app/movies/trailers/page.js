@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import React, { useState, useEffect } from 'react';
-import MainNav from '@/components/MainNavbar';
+import MainNav from '@/components/mainnavbar';
 import Link from 'next/link';
 import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
@@ -13,7 +13,6 @@ const TrailersPage = () => {
     const genreKey = 'trailers';
 
     useEffect(() => {
-        // Retrieve page from localStorage on mount 
         const savedPage = parseInt(localStorage.getItem(`page_${genreKey}`), 10) || 1;
         setPage(savedPage);
     }, []);
@@ -53,7 +52,6 @@ const TrailersPage = () => {
 
     const handlePageChange = (newPage) => {
         setPage(newPage);
-        // Save the current page to localStorage
         localStorage.setItem(`page_${genreKey}`, newPage.toString());
     };
 
@@ -71,7 +69,7 @@ const TrailersPage = () => {
         "horror", "music", "mystery", "romance", "scienceFiction",
         "tvMovie", "thriller", "war", "western"
     ];
-    // Define the list of movie categories
+
     const mov = [
         "trending", "trailers"
     ];
@@ -80,15 +78,14 @@ const TrailersPage = () => {
         <div>
             <MainNav />
             <div className="flex items-start justify-center min-h-screen bg-gray-900">
-                <div className="container mx-auto mt-8">
-                    <div className="flex items-center justify-between mb-4">
+                <div className="container px-4 mx-auto mt-8">
+                    <div className="flex items-center justify-between mb-6">
                         <h1 className="text-3xl font-bold text-white">Movie Trailers</h1>
-                    </div>
-                    <div className="absolute top-[140px] flex justify-start my-5 -translate-x-40">
+                        <div className="flex justify-between mb-4">
                         <button
                             onClick={() => handlePageChange(page - 1)}
                             disabled={page === 1}
-                            className="px-4 py-2 mx-2 text-xl font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="px-4 py-2 mx-2 text-xl font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                         >
                             <GrFormPrevious />
                         </button>
@@ -99,18 +96,21 @@ const TrailersPage = () => {
                             <MdNavigateNext />
                         </button>
                     </div>
-                    <div className="absolute flex justify-start my-12 top-[156px] left-5">
-                    <ul className='flex flex-col items-start gap-2'>
-                        {mov.map((category, index) => (
-                            <li key={index} className='flex bg-black w-36'>
-                                <Link href={`/movies/${category}`} className="w-full px-4 py-2 font-medium text-center text-white capitalize bg-indigo-600 rounded-md text-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{category}</Link>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
+                    </div>
+
+                    <div className="flex flex-col mb-4 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+                        <ul className='flex flex-col items-start gap-2 sm:flex-row'>
+                            {mov.map((category, index) => (
+                                <li key={index} className='flex w-full bg-black sm:w-36'>
+                                    <Link href={`/movies/${category}`} className="w-full px-4 py-2 font-medium text-center text-white capitalize bg-indigo-600 rounded-md text-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{category}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
                     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                         {trailers.map(movie => (
-                            <div key={movie.id} className="flex flex-col h-full p-2 bg-gray-800 rounded-md shadow-md cursor-pointer" onClick={() => handleTrailerClick(movie.trailer)}>
+                            <div key={movie.id} className="flex flex-col h-full p-2 bg-gray-800 rounded-md shadow-md cursor-pointer hover:shadow-lg" onClick={() => handleTrailerClick(movie.trailer)}>
                                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} className="w-full h-auto rounded-md" />
                                 <div className="flex flex-col justify-between flex-grow mt-2">
                                     <h2 className="text-sm font-semibold text-gray-200">{movie.title} ({movie.release_date})</h2>
@@ -119,31 +119,31 @@ const TrailersPage = () => {
                             </div>
                         ))}
                     </div>
-                 
-                    <div className="flex justify-center my-8">
+
+                    <div className="flex justify-center my-8 space-x-4 ">
                         <button
                             onClick={() => handlePageChange(page - 1)}
                             disabled={page === 1}
-                            className="px-4 py-2 mx-2 text-sm font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                             Previous Page
                         </button>
                         <button
                             onClick={() => handlePageChange(page + 1)}
-                            className="px-4 py-2 mx-2 text-sm font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             Next Page
                         </button>
                     </div>
-                    {/* Modal for displaying the trailer */}
+
                     {selectedTrailer && (
                         <div className="fixed top-0 left-0 z-50 flex items-center justify-center w-full h-full bg-black bg-opacity-75">
-                            <div className="relative w-3/4 h-3/4">
+                            <div className="relative w-11/12 h-3/4 md:w-3/4 lg:w-1/2">
                                 <button className="absolute text-2xl text-white top-4 right-4 focus:outline-none" onClick={handleClosePopup}>
                                     &times;
                                 </button>
                                 <iframe
-                                    className="w-full h-full"
+                                    className="w-full h-full rounded-md"
                                     src={`https://www.youtube.com/embed/${selectedTrailer.key}`}
                                     title={selectedTrailer.title}
                                     frameBorder="0"
@@ -160,4 +160,3 @@ const TrailersPage = () => {
 };
 
 export default TrailersPage;
-

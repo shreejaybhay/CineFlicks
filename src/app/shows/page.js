@@ -1,10 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import MainNav from '@/components/MainNavbar';
+import MainNav from '@/components/mainnavbar';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
+import { BsFillMicFill } from 'react-icons/bs';
 
 const ShowsPage = () => {
     const [shows, setShows] = useState([]);
@@ -33,10 +34,10 @@ const ShowsPage = () => {
                 url = `https://api.themoviedb.org/3/search/tv?api_key=${api_key}&query=${encodeURIComponent(searchTerm)}&page=${page}`;
             } else if (selectedGenre) {
                 url = `https://api.themoviedb.org/3/discover/tv?api_key=${api_key}&with_genres=${selectedGenre}&page=${page}`;
-            } else if (selectedTop) { 
-                url = `https://api.themoviedb.org/3/tv/${selectedTop}?api_key=${api_key}&page=${page}`; 
+            } else if (selectedTop) {
+                url = `https://api.themoviedb.org/3/tv/${selectedTop}?api_key=${api_key}&page=${page}`;
             }
-        
+
             try {
                 const response = await fetch(url);
                 if (!response.ok) {
@@ -50,10 +51,10 @@ const ShowsPage = () => {
                 console.error('Error fetching TV Shows:', error);
             }
         };
-        
+
         fetchTVShows();
     }, [searchTerm, page, selectedGenre, selectedTop]);
-    
+
 
     const handlePageChange = (newPage) => {
         setPage(newPage);
@@ -75,6 +76,23 @@ const ShowsPage = () => {
         setSelectedTop(tops);
         setPage(1);
         localStorage.setItem(selectedTopKey, tops);
+    };
+
+
+    const handleVoiceSearch = () => {
+        const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+        recognition.lang = 'en-US';
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[0][0].transcript;
+            setSearchTerm(transcript);
+            setPage(1);
+        };
+
+        recognition.onerror = (event) => {
+            console.error('Error occurred in recognition: ', event.error);
+        };
     };
 
 
@@ -110,9 +128,9 @@ const ShowsPage = () => {
             <MainNav />
             <div className="flex items-start justify-center min-h-screen bg-gray-900">
                 <div className="container mx-auto mt-8">
-                    <div className="flex items-center justify-between mb-4">
-                        <h1 className="text-3xl font-bold text-white">Shows</h1>
-                        <div className="flex space-x-2">
+                    <div className="flex flex-col items-center justify-between mb-4 sm:flex-row">
+                        <h1 className="mb-4 text-3xl font-bold text-white sm:mb-0">Shows</h1>
+                        <div className="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
                             <input
                                 type="text"
                                 className='px-4 py-2 text-black border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500'
@@ -120,6 +138,12 @@ const ShowsPage = () => {
                                 value={searchTerm}
                                 onChange={handleSearchChange}
                             />
+                            <button
+                                className="px-4 py-2 text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                onClick={handleVoiceSearch}
+                            >
+                                <BsFillMicFill />
+                            </button>
                             <select
                                 className="px-4 py-2 text-black border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-indigo-500"
                                 value={selectedGenre}
@@ -137,17 +161,17 @@ const ShowsPage = () => {
                             >
                                 <option value="">All Tops</option>
                                 {top.map((tops) => (
-                                    <option key={tops.id} value={tops.id}>{tops.name}</option> 
+                                    <option key={tops.id} value={tops.id}>{tops.name}</option>
                                 ))}
                             </select>
 
                         </div>
                     </div>
-                    <div className="absolute top-[140px] flex justify-start my-5 -translate-x-40">
+                    <div className="flex justify-between mb-4">
                         <button
                             onClick={() => handlePageChange(page - 1)}
                             disabled={page === 1}
-                            className="px-4 py-2 mx-2 text-xl font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="px-4 py-2 mx-2 text-xl font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
                         >
                             <GrFormPrevious />
                         </button>
@@ -163,7 +187,7 @@ const ShowsPage = () => {
                         {shows.map(tvshow => (
                             <Link key={tvshow.id} href={`/shows/${tvshow.id}`}>
                                 <div className='flex flex-col h-full p-2 bg-gray-800 rounded-md shadow-md cursor-pointer'>
-                                    <img src={`https://image.tmdb.org/t/p/w500${tvshow.poster_path}`} alt={tvshow.name} className="w-full h-auto rounded-md" />
+                                    <img src={tvshow.poster_path ? `https://image.tmdb.org/t/p/w500${tvshow.poster_path}` : 'https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg'} alt={tvshow.name} className="w-full h-auto rounded-md" />
                                     <div className="flex flex-col justify-between flex-grow mt-2">
                                         <h2 className="text-sm font-semibold text-gray-200">{tvshow.name} ({new Date(tvshow.first_air_date).getFullYear()})</h2>
                                         <p className="text-xs text-gray-400">Rating: {tvshow.vote_average}</p>

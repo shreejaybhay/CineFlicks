@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import React, { useState, useEffect } from 'react';
-import MainNav from '@/components/MainNavbar';
+import MainNav from '@/components/mainnavbar';
 import Link from 'next/link';
 import { MdNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
@@ -84,11 +84,11 @@ const TrendingMoviesPage = () => {
               onChange={handleSearchChange}
             />
           </div>
-          <div className="absolute top-[140px] flex justify-start my-5 -translate-x-40">
+          <div className="flex justify-between mb-4">
             <button
               onClick={() => handlePageChange(page - 1)}
               disabled={page === 1}
-              className="px-4 py-2 mx-2 text-xl font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="px-4 py-2 mx-2 text-xl font-medium text-white bg-indigo-600 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
             >
               <GrFormPrevious />
             </button>
@@ -99,10 +99,10 @@ const TrendingMoviesPage = () => {
               <MdNavigateNext />
             </button>
           </div>
-          <div className="absolute flex justify-start my-12 top-[156px] left-5">
-            <ul className='flex flex-col items-start gap-2'>
+          <div className="flex flex-col mb-4 space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2">
+            <ul className='flex flex-col items-start gap-2 sm:flex-row'>
               {mov.map((category, index) => (
-                <li key={index} className='flex bg-black w-36'>
+                <li key={index} className='flex w-full bg-black sm:w-36'>
                   <Link href={`/movies/${category}`} className="w-full px-4 py-2 font-medium text-center text-white capitalize bg-indigo-600 rounded-md text-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">{category}</Link>
                 </li>
               ))}

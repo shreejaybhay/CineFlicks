@@ -1,7 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
-import MainNav from '@/components/MainNavbar';
+import MainNav from '@/components/mainnavbar';
 import Link from 'next/link';
 import { MdKeyboardBackspace } from 'react-icons/md';
 
@@ -40,7 +40,7 @@ const CastPage = () => {
             <MainNav />
             <div className="min-h-screen text-white bg-gray-900">
                 <div className="container px-4 py-8 mx-auto">
-                    <div className="flex items-center mb-4">
+                    <div className="flex items-center mb-6">
                         <Link href={`/movies/${movieId}`}>
                             <p className="flex items-center text-indigo-500 hover:text-indigo-400">
                                 <MdKeyboardBackspace className="mr-2" /> Back to Movies
@@ -48,13 +48,13 @@ const CastPage = () => {
                         </Link>
                     </div>
                     <h1 className="mb-8 text-3xl font-bold">Cast</h1>
-                    <div className="grid grid-cols-2 gap-6 md:grid-cols-3 lg:grid-cols-5">
+                    <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6">
                         {cast.map(actor => (
-                            <div key={actor.id} className="text-center">
+                            <div key={actor.id} className="flex flex-col items-center text-center transition transform hover:scale-[1.02]">
                                 <img
                                     src={actor.profile_path ? `https://image.tmdb.org/t/p/w200${actor.profile_path}` : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'}
                                     alt={actor.name}
-                                    className="object-cover w-32 h-32 mx-auto mb-2 rounded-full"
+                                    className="object-cover w-32 h-32 mb-2 rounded-full shadow-lg"
                                 />
                                 <h2 className="text-lg font-semibold">{actor.name}</h2>
                                 <p className="text-sm text-gray-400">{actor.character}</p>

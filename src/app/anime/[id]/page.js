@@ -1,7 +1,7 @@
 "use client"
 /* eslint-disable @next/next/no-img-element */
 import React, { useEffect, useState } from 'react';
-import MainNav from '@/components/MainNavbar';
+import MainNav from '@/components/mainnavbar';
 
 const AnimeDetailsPage = () => {
     const [anime, setAnime] = useState(null);
@@ -80,33 +80,33 @@ const AnimeDetailsPage = () => {
 
     return (
         <div className="min-h-screen bg-gray-900">
-        <MainNav />
-        <div className="container px-4 py-8 mx-auto">
-            <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-2">
-                <div>
-                    <img src={anime.coverImage.large} alt={anime.title.romaji} className="w-full rounded-md" />
-                </div>
-                <div className="text-white">
-                    <h1 className="text-3xl font-bold">{anime.title.romaji}</h1>
-                    <p className="mt-2 text-gray-400">{anime.description}</p>
-                    <div className="grid grid-cols-2 gap-4 mt-4">
-                        <div>
-                            <p className="text-gray-400"><span className="font-semibold">Episodes:</span> {anime.episodes}</p>
-                            <p className="text-gray-400"><span className="font-semibold">Status:</span> {anime.status}</p>
-                        </div>
-                        <div>
-                            <p className="text-gray-400"><span className="font-semibold">Season:</span> {anime.season}</p>
-                            <p className="text-gray-400"><span className="font-semibold">Year:</span> {anime.seasonYear}</p>
-                        </div>
+            <MainNav />
+            <div className="container px-4 py-8 mx-auto">
+                <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-2">
+                    <div>
+                        <img src={anime.coverImage.large} alt={anime.title.romaji} className="w-full rounded-md" />
                     </div>
-                    <div className="mt-4">
-                        <p className="text-gray-400"><span className="font-semibold">Genres:</span> {anime.genres.join(', ')}</p>
+                    <div className="text-white">
+                        <h1 className="text-3xl font-bold">{anime.title.romaji}</h1>
+                        <p className="mt-2 text-gray-400">{anime.description}</p>
+                        <div className="grid grid-cols-2 gap-4 mt-4">
+                            <div>
+                                <p className="text-gray-400"><span className="font-semibold">Episodes:</span> {anime.episodes}</p>
+                                <p className="text-gray-400"><span className="font-semibold">Status:</span> {anime.status}</p>
+                            </div>
+                            <div>
+                                <p className="text-gray-400"><span className="font-semibold">Season:</span> {anime.season}</p>
+                                <p className="text-gray-400"><span className="font-semibold">Year:</span> {anime.seasonYear}</p>
+                            </div>
+                        </div>
+                        <div className="mt-4">
+                            <p className="text-gray-400"><span className="font-semibold">Genres:</span> {anime.genres.join(', ')}</p>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    
+
     );
 };
 

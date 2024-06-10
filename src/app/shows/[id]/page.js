@@ -2,12 +2,11 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import MainNav from '@/components/MainNavbar';
+import MainNav from '@/components/mainnavbar';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Link from 'next/link';
-import { AiOutlineDownload } from 'react-icons/ai';
 import { MdClose } from 'react-icons/md';
 
 const ShowsDetailsPage = () => {
@@ -112,32 +111,13 @@ const ShowsDetailsPage = () => {
     return (
         <div>
             <MainNav />
-            <div className="flex items-start justify-center min-h-screen bg-gray-900">
-                <div className="container mx-auto mt-8">
+            <div className="flex items-start justify-center min-h-screen text-white bg-gray-900">
+                <div className="container px-4 pb-10 mx-auto mt-8">
                     <div className="grid grid-cols-1 gap-8 lg:grid-cols-6">
-                        <div className="col-span-1">
+                        <div className="lg:col-span-2">
                             <img src={tvShow.poster_path ? `https://image.tmdb.org/t/p/w500${tvShow.poster_path}` : 'https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg'} alt={tvShow.name} className="w-full h-auto rounded-md" />
-                            <div className="p-4 mt-8 bg-gray-800 rounded-md">
-                                <h2 className="mb-4 text-xl font-semibold text-white">Cast</h2>
-                                {cast.length > 0 ? (
-                                    <ul className="space-y-2">
-                                        {cast.slice(0, 5).map((actor, index) => (
-                                            <li key={index} className="flex items-center">
-                                                <img
-                                                    src={actor.profile_path ? `https://image.tmdb.org/t/p/w45${actor.profile_path}` : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'}
-                                                    alt={actor.name}
-                                                    className="object-cover w-10 h-10 mr-3 rounded-full"
-                                                />
-                                                <span className="text-white">{actor.name}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                ) : (
-                                    <p className="text-white">No cast information available.</p>
-                                )}
-                            </div>
                         </div>
-                        <div className="col-span-5 text-white">
+                        <div className="lg:col-span-4">
                             <h1 className="mb-4 text-4xl font-bold">{tvShow.name}</h1>
                             <p className="mb-2 text-gray-400">First Air Date: {tvShow.first_air_date}</p>
                             <p className="mb-2 text-gray-400">Rating: {tvShow.vote_average}</p>
@@ -160,14 +140,14 @@ const ShowsDetailsPage = () => {
                                                 <button onClick={closeModal} className="absolute text-white top-4 right-4 hover:text-gray-400">
                                                     <MdClose size={24} />
                                                 </button>
-                                                <div className="p-8">
+                                                <div className='w-full'>
                                                     <iframe
-                                                        className='w-full h-96'
+                                                        className="w-full h-[500px] lg:h-120"
                                                         src={`https://www.youtube.com/embed/${trailer.key}`}
                                                         frameBorder="0"
                                                         allow="accelerometer; autoplay; clipboard-write; encrypted-media"
                                                         allowFullScreen
-                                                        title={tvShow.name}
+                                                        title={tvShow.title}
                                                     ></iframe>
                                                 </div>
                                             </div>
@@ -175,34 +155,56 @@ const ShowsDetailsPage = () => {
                                     )}
                                 </div>
                             )}
-                            {similarShows.length > 0 && (
-                                <div className="mt-12">
-                                    <h2 className="mb-5 text-lg font-semibold text-white">Similar TV Shows</h2>
-                                    <Slider {...settings}>
-                                        {similarShows.map(similarShow => (
-                                            <Link key={similarShow.id} href={`/shows/${similarShow.id}`}>
-                                                <div className="cursor-pointer">
-                                                    {similarShow.poster_path ? (
-                                                        <img 
-                                                            src={`https://image.tmdb.org/t/p/w300${similarShow.poster_path}`} 
-                                                            alt={similarShow.name} 
-                                                            className="w-48 h-auto rounded-md" 
-                                                        />
-                                                    ) : (
-                                                        <img 
-                                                            src="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg" 
-                                                            alt="No Poster Available" 
-                                                            className="w-48 h-auto rounded-md" 
-                                                        />
-                                                    )}
-                                                    <p className="mt-2 text-sm text-gray-400">{similarShow.name}</p>
-                                                </div>
-                                            </Link>
-                                        ))}
-                                    </Slider>
-                                </div>
+
+                        </div>
+                    </div>
+                    <div className='grid grid-cols-1 gap-10 lg:grid-cols-3'>
+                        <div className="col-span-1 p-4 mt-8 bg-gray-800 rounded-md">
+                            <h2 className="mb-4 text-xl font-semibold text-white">Cast</h2>
+                            {cast.length > 0 ? (
+                                <ul className="space-y-2">
+                                    {cast.slice(0, 5).map((actor, index) => (
+                                        <li key={index} className="flex items-center">
+                                            <img
+                                                src={actor.profile_path ? `https://image.tmdb.org/t/p/w45${actor.profile_path}` : 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg'}
+                                                alt={actor.name}
+                                                className="object-cover w-10 h-10 mr-3 rounded-full"
+                                            />
+                                            <span className="text-white">{actor.name}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            ) : (
+                                <p className="text-white">No cast information available.</p>
                             )}
                         </div>
+                        {similarShows.length > 0 && (
+                            <div className="col-span-2 mt-12">
+                                <h2 className="mb-5 text-lg font-semibold text-white">Similar TV Shows</h2>
+                                <Slider {...settings}>
+                                    {similarShows.map(similarShow => (
+                                        <Link key={similarShow.id} href={`/shows/${similarShow.id}`}>
+                                            <div className="cursor-pointer">
+                                                {similarShow.poster_path ? (
+                                                    <img
+                                                        src={`https://image.tmdb.org/t/p/w300${similarShow.poster_path}`}
+                                                        alt={similarShow.name}
+                                                        className="w-48 h-auto rounded-md"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src="https://eticketsolutions.com/demo/themes/e-ticket/img/movie.jpg"
+                                                        alt="No Poster Available"
+                                                        className="w-48 h-auto rounded-md"
+                                                    />
+                                                )}
+                                                <p className="mt-2 text-sm text-gray-400">{similarShow.name}</p>
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </Slider>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -211,3 +213,4 @@ const ShowsDetailsPage = () => {
 };
 
 export default ShowsDetailsPage;
+
